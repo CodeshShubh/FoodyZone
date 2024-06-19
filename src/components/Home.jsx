@@ -87,6 +87,7 @@ export default Home;
 const HomeConatiner = styled.div`
   max-width: 1440px;
   min-height: calc(785px - 220px);
+  padding: 1px;
   background-size: cover;
   background: linear-gradient(rgba(0, 0, 0, 0.5),  rgba(0, 0, 0, 0.5)) , url(${bg});
 
@@ -94,10 +95,9 @@ const HomeConatiner = styled.div`
 `
 
 const FoodCardConatiner =  styled.div`
-  border: 1px solid blue;
   padding: 1rem;
   max-width: 1300px;
-  margin: 0 auto;
+  margin: 2rem auto;
   display: flex;
   flex-wrap: wrap;
   row-gap: 32px;
