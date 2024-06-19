@@ -1,79 +1,65 @@
 import styled from "styled-components";
 import bg from '../assets/Background.png'
-import img1 from '../assets/dish1.png'
-import img2 from '../assets/dish6.png'
-import img3 from '../assets/dish5.png'
-import img4 from '../assets/dish4.png'
-import img5 from '../assets/dish3.png'
-import img6 from '../assets/dish2.png'
-
-
+import axios from "axios";
 import {Button} from './NavBar'
+import { useEffect, useState } from "react";
 
-
-const foods = [
-  {
-    image: img1,
-    heading: "Boiled Eggs",
-    text: 'Lorem ipsum dolor sit amet consectetur. Odio elementum in neque cras eget est.',
-    btntext: 10.00
-     
-  },
-  {
-    image: img1,
-    heading: "Boiled Eggs",
-    text: 'Lorem ipsum dolor sit amet consectetur. Odio elementum in neque cras eget est.',
-    btntext: 10.00
-     
-  },
-  {
-    image: img1,
-    heading: "Boiled Eggs",
-    text: 'Lorem ipsum dolor sit amet consectetur. Odio elementum in neque cras eget est.',
-    btntext: 10.00
-     
-  },
-  {
-    image: img1,
-    heading: "Boiled Eggs",
-    text: 'Lorem ipsum dolor sit amet consectetur. Odio elementum in neque cras eget est.',
-    btntext: 10.00
-     
-  },
-  {
-    image: img1,
-    heading: "Boiled Eggs",
-    text: 'Lorem ipsum dolor sit amet consectetur. Odio elementum in neque cras eget est.',
-    btntext: 10.00
-     
-  },
-  {
-    image: img1,
-    heading: "Boiled Eggs",
-    text: 'Lorem ipsum dolor sit amet consectetur. Odio elementum in neque cras eget est.',
-    btntext: 10.00
-     
-  },
-] 
 
 
 
 const Home = () => {
+
+  const [Data, setData] = useState([]);
+  const [Loading, setLoading] = useState(true);
+  const [Error, setError] = useState(null);
+
+
+  const BASE_URL = "http://localhost:4000"
+
+
+ useEffect(() => {
+  const fetchData = async()=>{
+      try {
+
+        const response = await axios.get(BASE_URL);
+        setData(response.data);
+        setLoading(false)
+        
+      } catch (error) {
+        setError(error);
+        setLoading(false)
+    }
+  }
+  fetchData();
+ }, []);
+
+
+ if(Loading){
+  return <div>Loading...</div>
+ }
+ if(Error){
+  return <div>Error:{Error.message}</div>
+ }
+ 
+ 
+
+console.log(Data);
+
   return (
     <HomeConatiner>
       <FoodCardConatiner>
       {
-        foods.map(({image, heading, text, btntext})=>
-          <div key={heading} className="food_card">
+        Data?.map(({image, name, text, price}, index)=>(
+          <div key={index} className="food_card">
         <div className="food_image">
-        <img src={image} alt="Food Image" />
+        <img src={BASE_URL + image} alt="Food Image" />
         </div>
         <div className="food_info">
-          <h1>{heading}</h1>
+          <h1>{name}</h1>
           <p>{text}</p>
-          <div className="food_Card_btn"><FoodCardBtn>${btntext}.00</FoodCardBtn></div>
+          <div className="food_Card_btn"><FoodCardBtn>${price}.00</FoodCardBtn></div>
         </div>
-      </div>)
+      </div>))
       }    
 
       </FoodCardConatiner>
