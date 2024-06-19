@@ -96,7 +96,7 @@ const HomeConatiner = styled.div`
 const FoodCardConatiner =  styled.div`
   border: 1px solid blue;
   padding: 1rem;
-  max-width: 1060px;
+  max-width: 1300px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
